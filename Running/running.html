@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animasi Bergerak dengan inputan Keyboard</title>
+	<style>
+		#orang{
+			position: absolute;
+			width:48px;
+			height: 60px;
+			background: url(orang.png);
+		}
+		@keyframes kanan{
+			0%{background-position: 0px 64px;}
+			100%{background-position: -576px 64px;}
+		}
+		@keyframes kiri{
+			0%{background-position: 0px 192px;}
+			100%{background-position: -576px 192px;}
+		}
+		@keyframes atas{
+			0%{background-position: 0px 0px;}
+			100%{background-position: -576px 0px;}
+		}
+		@keyframes bawah{
+			0%{background-position: -576px 128px;}
+			100%{background-position: 0px 128px;}
+		}
+	</style>
+</head>
+<body>
+	<div id="orang"></div>
+	<script>
+	var orang=document.getElementById('orang');
+
+
+	document.addEventListener('keydown', function(event){
+		var keyPress= String.fromCharCode(event.keyCode);
+		if(keyPress=="D"){
+			orang.style.animation='kanan 1s steps(9) infinite';
+			arah('kanan');
+			animasiJalan();
+		}
+		else if(keyPress=="S") {
+			orang.style.animation='bawah 1s steps(9) infinite';
+			arah('bawah');
+			animasiJalan();
+		}
+		else if(keyPress=="W") {
+			orang.style.animation='atas 1s steps(9) infinite';
+			arah('atas');
+			animasiJalan();
+		}
+		else if(keyPress=="A") {
+			orang.style.animation='kiri 1s steps(9) infinite';
+			arah('kiri');
+			animasiJalan();
+		}
+	});
+	function arah(arah){
+			arahJ=arah;
+	}
+
+	document.addEventListener('keyup',function(event){
+		orang.style.animationPlayState="paused";
+	});
+	function animasiJalan(){
+		if(arahJ=="kanan"){
+			orang.style.left = (orang.offsetLeft += 2) + 'px';
+		}else if(arahJ=="kiri"){
+			orang.style.left = (orang.offsetLeft -= 2) + 'px';
+		}else if(arahJ=="atas"){
+			orang.style.top = (orang.offsetTop -= 2) + 'px';
+		}else if(arahJ=="bawah"){
+			orang.style.top = (orang.offsetTop += 2) + 'px';
+		}
+		
+		timer = setInterval(animate,30);
+	}
+	</script>
+</body>
